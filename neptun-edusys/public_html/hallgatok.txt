@@ -1,3 +1,3 @@
-Juhász Bence;
-Deim Máté;
-Gipsz Jakab;
+ABC123;kiskutya12;anglisztika
+XYZ789;nagymacska24;programtervező informatikus
+EDK353;12345;jogász
