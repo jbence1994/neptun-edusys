@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/neptun-icon.jpg" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NEPTUN Egységes Tanulmányi Rendszer</title>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-12">
+                <img id="neptun-logo" src="img/neptun.png">
+                <fieldset>
+                    <legend>Bejelentkezés diákként</legend>
+                    <input class="form-control" id="studentCode" type="text" placeholder="NEPTUN-kód">
+                    <input class="form-control" id="studentPassword" type="password" placeholder="Jelszó">
+                    <input class="btn btn-primary login" type="submit" value="Belépés">
+                </fieldset>
+                <fieldset>
+                    <legend>Bejelentkezés adminisztrátorként</legend>
+                    <input class="form-control" id="adminCode" type="text" placeholder="NEPTUN-kód">
+                    <input class="form-control" id="adminPassword" type="password" placeholder="Jelszó">
+                    <input class="btn btn-primary login" type="submit" value="Belépés">
+                </fieldset>
+            </div>
+        </div>
+    </body>
+</html>

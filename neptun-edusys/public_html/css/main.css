@@ -1,0 +1,26 @@
+#neptun-logo {
+    display: block;
+    margin: 0 auto;
+    height: 40%;
+    width: 50%;
+    padding: 5%;
+}
+
+body{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+.login{
+    width: 100%;
+}
+
+fieldset{
+    padding: 5%;
+    border: 1px dotted black;
+}
+
+legend {
+    text-align: center;
+}
