@@ -1,11 +1,19 @@
 $(document).ready(function () {
 
-    $(document).on('click', '#login', function (e) {
-        // e.preventDefault();
-        window.alert("HELLO");
+    $(document).on('click', '#admin-login', function () {
+        window.location = "mainAdmin.html";
+    });
 
+    $(document).on('click', '#student-login', function () {
 
-        // átirányítás: window.location = "";
+        let code = $('#studentCode').val();
+        let password = $('#studentPassword').val();
+
+        if (code === "" || password === "") {
+            alert("Hibás Neptun kód vagy jelszó!");
+        }
+
+        // ...
 
     });
 
