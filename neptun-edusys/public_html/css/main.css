@@ -6,13 +6,13 @@
     padding: 5%;
 }
 
-body{
+#login {
     width: 50%;
     margin: 0 auto;
     margin-top: 5%;
 }
 
-.login{
+input {
     width: 100%;
 }
 
