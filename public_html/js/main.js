@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    fetch('students.txt')
+            .then(response => response.text())
+            .then(text => console.log(text));
+
     localStorage.setItem('test_0', 'Ipsum lorem ....');
 
     function getCourseArray() {
@@ -9,7 +13,6 @@ $(document).ready(function () {
     let courseArray = getCourseArray();
 
     for (let i = 0; i < courseArray.length; i++) {
-
         let key = courseArray[i];
         let value = JSON.parse(localStorage[key]);
         addCourseToDOM(key, value);
@@ -20,29 +23,27 @@ $(document).ready(function () {
     }
 
     function deleteCourse(key) {
-
         localStorage.removeItem(key);
 
         let courseArray = getCourseArray();
 
         if (courseArray) {
-            for(let i = 0; i < courseArray.length; i++){
-                if(key === courseArray[i]) {
+            for (let i = 0; i < courseArray.length; i++) {
+                if (key === courseArray[i]) {
                     courseArray.splice(i, 1);
                 }
             }
-
             localStorage.setItem('courseArray', JSON.stringify(courseArray));
         }
     }
 
     function setCookie(key, value, days) {
         let expires = ""; // lejárati dátum
-    
+
         if (days) {
             let date = new Date();
-            date.setTime(date.getTime()+(1000 * 60 * 60 * 24 * days));
-            expires ="; expires= " + date.toUTCString();
+            date.setTime(date.getTime() + (1000 * 60 * 60 * 24 * days));
+            expires = "; expires= " + date.toUTCString();
         }
 
         document.cookie = key + "=" + value + expires + ";path=/";
@@ -54,13 +55,13 @@ $(document).ready(function () {
 
         let c;
 
-        for(let i=0; cookies.length; i++){
-            c= cookies[i];
-            while(c.charAt(0) === ''){
+        for (let i = 0; cookies.length; i++) {
+            c = cookies[i];
+            while (c.charAt(0) === '') {
                 c = c.substring(1, c.length);
             }
 
-            if(c.indexOf(searchName) ===0){
+            if (c.indexOf(searchName) === 0) {
                 return c.substring(searchName.length, c.length);
             }
         }
@@ -73,14 +74,14 @@ $(document).ready(function () {
         window.location = "mainAdmin.html";
     });
 
-  $(document).on('click', '#student-login', function () {
+    $(document).on('click', '#student-login', function () {
 
-   /*     let code = $('#studentCode').val();
-        let password = $('#studentPassword').val();
-
-        if (code === "" || password === "") {
-            alert("Hibás Neptun kód vagy jelszó!");
-        } */
+        /*     let code = $('#studentCode').val();
+         let password = $('#studentPassword').val();
+         
+         if (code === "" || password === "") {
+         alert("Hibás Neptun kód vagy jelszó!");
+         } */
 
         let key = prompt("Kérem a süti nevét: ");
         let value = prompt("Kérem a süti értékét: ");
@@ -91,7 +92,7 @@ $(document).ready(function () {
 
 
 
-    $(document).on('click', '#deleteCookie', function(){
+    $(document).on('click', '#deleteCookie', function () {
         let key = prompt("Süti törlés kulcsa: ");
         setCookie(key, "", -1);
     });
