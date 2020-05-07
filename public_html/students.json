@@ -1,0 +1,17 @@
+[
+    {
+        "code": "ABC123",
+        "password": "kiskutya12",
+        "speciality": "anglisztika"
+    },
+    {
+        "code": "XYZ789",
+        "password": "nagymacska24",
+        "speciality": "programtervező informatikus"
+    },
+    {
+        "code": "EDK353",
+        "password": "12345",
+        "speciality": "jogász"
+    }
+]
