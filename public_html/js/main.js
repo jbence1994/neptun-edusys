@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    $(document).on('click', '#admin-login', function () {
+        window.location = "mainAdmin.html";
+    });
+
     function initalizeLocalStoreageWithTestStudents() {
 
         let students = [];
@@ -44,12 +48,14 @@ $(document).ready(function () {
     initalizeLocalStoreageWithTestStudents();
     initalizeLocalStoreageWithTestCourses();
 
-
-
-
-    $().on('click', '#addCourse', function (e) {
+    $(document).on('click', '#submit_course', function (e) {
 
         e.preventDefault();
+
+    });
+
+    $(document).on('click', '.logout', function () {
+        window.location = "index.html";
 
     });
 
@@ -57,19 +63,6 @@ $(document).ready(function () {
 
 
     /*     
-     function getCourseArray() {
-     let courseArray = localStorage.getItem('courseArray');
-     
-     if (!courseArray) {
-     courseArray = [];
-     localStorage.setItem('courseArray', JSON.stringify(courseArray));
-     } else {
-     courseArray = JSON.parse(courseArray);
-     }
-     
-     return courseArray;
-     }
-     
      for (let i = 0; i < courseArray.length; i++) {
      let key = courseArray[i];
      let value = JSON.parse(localStorage[key]);
@@ -128,9 +121,7 @@ $(document).ready(function () {
      }
      
      
-     $(document).on('click', '#admin-login', function () {
-     window.location = "mainAdmin.html";
-     });
+     
      
      $(document).on('click', '#student-login', function () {
      
