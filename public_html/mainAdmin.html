@@ -37,15 +37,18 @@
                         <td>Max. létszám</td>
                         <td>Oktató neve</td>
                         <td>Típus</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
-                <form id="new_course" method="post">
-                    <input class="form-control" type="text" id="course_name" placeholder="Kurzus neve">
-                    <input class="form-control" type="text" id="course_code" placeholder="Kurzus kódja">
-                    <input class="form-control" type="number" id="course_credit" placeholder="Kreditszám">
-                    <input class="form-control" type="number" id="course_maxStudent" placeholder="Max. létszám">
-                    <input class="form-control" type="text" id="course_teacher" placeholder="Oktató neve">
-                    <input class="form-control" type="text" id="course_type" placeholder="Típus">
+                <form id="course" method="post">
+                    <input id="_id" type="hidden" name="_id">
+                    <input id="_name" class="form-control" type="text" name="_name" placeholder="Kurzus neve">
+                    <input id="_code" class="form-control" type="text" name="_code" placeholder="Kurzus kódja" required>
+                    <input id="_credit" class="form-control" type="number" name="_credit" placeholder="Kreditszám">
+                    <input id="_maxStudent" class="form-control" type="number" name="_maxStudent" placeholder="Max. létszám">
+                    <input id="_teacher" class="form-control" type="text" name="_teacher" placeholder="Oktató neve">
+                    <input id="_type" class="form-control" type="text" name="_type" placeholder="Típus">
                     <input class="btn btn-primary" type="submit" id="submit_course" value="Kurzus felvétele">
                 </form>
             </div>

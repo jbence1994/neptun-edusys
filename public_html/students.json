@@ -2,7 +2,7 @@
     {
         "code": "ABC123",
         "password": "kiskutya12",
-        "speciality": "anglisztika"
+        "speciality": "gazdaság informatikus"
     },
     {
         "code": "XYZ789",
@@ -12,6 +12,6 @@
     {
         "code": "EDK353",
         "password": "12345",
-        "speciality": "jogász"
+        "speciality": "mérnökinformatikus"
     }
 ]
