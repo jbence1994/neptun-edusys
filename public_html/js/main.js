@@ -7,16 +7,13 @@ $(document).ready(function () {
     function initalizeLocalStoreageWithTestStudents() {
 
         let students = [];
-
         $.get('students.json', function (JSONData) {
 
             let data = JSON.parse(JSONData);
-
             for (let i = 0; i < data.length; i++) {
 
                 let student = new Student
                         (data[i].code, data[i].password, data[i].speciality);
-
                 students.push(student);
             }
 
@@ -27,17 +24,14 @@ $(document).ready(function () {
     function initalizeLocalStoreageWithTestCourses() {
 
         let courses = [];
-
         $.get('courses.json', function (JSONData) {
 
             let data = JSON.parse(JSONData);
-
             for (let i = 0; i < data.length; i++) {
 
                 let course = new Course
                         (data[i].name, data[i].code, data[i].credit,
                                 data[i].maxStudent, data[i].teacher, data[i].type);
-
                 courses.push(course);
             }
 
@@ -45,33 +39,31 @@ $(document).ready(function () {
         }, 'text');
     }
 
+    function displayCourses() {
+
+        let courses = JSON.parse(localStorage.getItem('courses'));
+
+        for (let i = 0; i < courses.length; i++) {
+            $('#courses').append('<td>' + JSON.stringify(courses[i]) + '</td>');
+        }
+    }
+
     initalizeLocalStoreageWithTestStudents();
     initalizeLocalStoreageWithTestCourses();
+    displayCourses();
+
+    $(document).on('click', '.logout', function () {
+        window.location = "index.html";
+    });
 
     $(document).on('click', '#submit_course', function (e) {
 
         e.preventDefault();
-
     });
-
-    $(document).on('click', '.logout', function () {
-        window.location = "index.html";
-
-    });
-
 
 
 
     /*     
-     for (let i = 0; i < courseArray.length; i++) {
-     let key = courseArray[i];
-     let value = JSON.parse(localStorage[key]);
-     addCourseToDOM(key, value);
-     }
-     
-     function addCourseToDOM(key, value) {
-     $('#TÁBLÁZAT').append("<tr></tr>");
-     }
      
      function deleteCourse(key) {
      localStorage.removeItem(key);
