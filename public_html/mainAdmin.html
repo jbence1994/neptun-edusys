@@ -22,11 +22,31 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kurzusok kezelése</a>
+                        <a class="nav-link logout">Kilépés</a>
                     </li>
                 </ul>
             </div>  
         </nav>
-        <div></div>
+        <div>
+            <table id="courses" class="table table-striped">
+                <tr>
+                    <td>Kurzus neve</td>
+                    <td>Kurzuskód</td>
+                    <td>Kreditszám</td>
+                    <td>Max. létszám</td>
+                    <td>Oktató neve</td>
+                    <td>Vizsgás / gyakorlati jegyes</td>
+                </tr>
+            </table>
+            <form id="add_course" method="post">
+                <input class="form-control" type="text" id="course_name" placeholder="Kurzus neve">
+                <input class="form-control" type="text" id="course_code" placeholder="Kurzus kódja">
+                <input class="form-control" type="number" id="course_credit" placeholder="Kreditszám">
+                <input class="form-control" type="number" id="course_maxStudent" placeholder="Max. létszám">
+                <input class="form-control" type="text" id="course_teacher" placeholder="Oktató neve">
+                <input class="form-control" type="text" id="course_type" placeholder="Típus">
+                <input class="btn btn-primary" type="submit" id="submit_course" value="Kurzus felvétele">
+            </form>
+        </div>
     </body>
 </html>

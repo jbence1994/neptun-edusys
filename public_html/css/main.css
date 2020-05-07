@@ -24,3 +24,15 @@ fieldset{
 legend {
     text-align: center;
 }
+
+.logout{
+    cursor: default;
+}
+
+#add_course{
+
+    margin: 0 auto;
+    width: 50%;
+    height: 50% ;
+
+}
