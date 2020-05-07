@@ -1,18 +1,16 @@
 $(document).ready(function () {
-    
-    function addStudentToLocalStoreage() {
+
+    function initalizeLocalStoreageWithTestData() {
+
         let studentsArray = [];
 
         $.get('students.json', function (data) {
+
             let adatok = JSON.parse(data);
 
             for (let i = 0; i < adatok.length; i++) {
-                let student = new Student(
-                        adatok[i].code,
-                        adatok[i].password,
-                        adatok[i].speciality
-                );
 
+                let student = new Student(adatok[i].code, adatok[i].password, adatok[i].speciality);
                 studentsArray.push(student);
             }
 
@@ -20,9 +18,9 @@ $(document).ready(function () {
         }, 'text');
     }
 
-    addStudentToLocalStoreage();
+    initalizeLocalStoreageWithTestData();
 
-    
+
 
     /*
      
