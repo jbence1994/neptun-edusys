@@ -70,6 +70,9 @@ $(document).ready(function () {
 
     function addCourse(courseData) {
         let courses = getCourseArray();
+        
+        // course data split for .ctor set
+        
         courses.push(new Course(courseData));
         localStorage.setItem('courses', JSON.stringify(courses));
     }
@@ -82,16 +85,9 @@ $(document).ready(function () {
         displayCourses();
     });
 
-
-
-
     $(document).on('click', '#list_courses', function () {
         // diák oldalon kurzus lista ...
     });
-
-
-
-
 
 
 
