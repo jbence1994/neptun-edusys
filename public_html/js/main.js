@@ -41,10 +41,16 @@ $(document).ready(function () {
 
     function displayCourses() {
 
-        let courses = JSON.parse(localStorage.getItem('courses'));
+        let values = JSON.parse(localStorage.getItem('courses'));
 
-        for (let i = 0; i < courses.length; i++) {
-            $('#courses').append('<td>' + JSON.stringify(courses[i]) + '</td>');
+        for (let i = 0; i < values.length; i++) {
+            $('#courses').append('<tr><td>' + values[i]._name + '</td>' +
+                    '<td>' + values[i]._code + '</td>' +
+                    '<td>' + values[i]._credit + '</td>' +
+                    '<td>' + values[i]._maxStudent + '</td>' +
+                    '<td>' + values[i]._teacher + '</td>' +
+                    '<td>' + values[i]._type + '</td>' +
+                    '</tr>');
         }
     }
 
@@ -55,6 +61,18 @@ $(document).ready(function () {
     $(document).on('click', '.logout', function () {
         window.location = "index.html";
     });
+
+
+
+
+
+
+
+
+
+
+
+
 
     $(document).on('click', '#submit_course', function (e) {
 
