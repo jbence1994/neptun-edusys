@@ -68,20 +68,20 @@ $(document).ready(function () {
         window.location = "index.html";
     });
 
-    function addCourse(courseData) {
+    $('#new_course').on('submit', function (e) {
+        
+        e.preventDefault();
+        
+        let newCourseData = $(this).serialize();
+        console.log(newCourseData.value);
+        
         let courses = getCourseArray();
         
         // course data split for .ctor set
         
-        courses.push(new Course(courseData));
+        courses.push(new Course(newCourseData));
         localStorage.setItem('courses', JSON.stringify(courses));
-    }
-
-    $(document).on('click', '#submit_course', function (e) {
-        e.preventDefault();
-
-        let newCourseData = $('#new_course').serialize();
-        addCourse(newCourseData);
+        
         displayCourses();
     });
 
