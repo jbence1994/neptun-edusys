@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     function initalizeLocalStoreageWithTestData() {
 
-        let studentsArray = [];
+        let students = [];
 
         $.get('students.json', function (JSONData) {
 
@@ -11,10 +11,10 @@ $(document).ready(function () {
             for (let i = 0; i < data.length; i++) {
 
                 let student = new Student(data[i].code, data[i].password, data[i].speciality);
-                studentsArray.push(student);
+                students.push(student);
             }
 
-            localStorage.setItem('studentsArray', JSON.stringify(studentsArray));
+            localStorage.setItem('students', JSON.stringify(students));
         }, 'text');
     }
 
