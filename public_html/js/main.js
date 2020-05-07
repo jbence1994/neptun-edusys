@@ -45,7 +45,9 @@ $(document).ready(function () {
 
     function displayCourses() {
 
-        let values = JSON.parse(localStorage.getItem('courses'));
+        // $('#courses').empty(); // HTML reinit
+
+        let values = getCourseArray();
 
         for (let i = 0; i < values.length; i++) {
             $('#courses').append('<tr><td>' + values[i]._name + '</td>' +
