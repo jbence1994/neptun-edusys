@@ -1,51 +1,28 @@
 $(document).ready(function () {
-
-    let studentsArray = [];
-
-    function getStudentArray() {
-        let studentsArray = localStorage.getItem('studentsArray');
-
-        if (!studentsArray) {
-            studentsArray = [];
-            localStorage.setItem('studentsArray', JSON.stringify(studentsArray));
-        }
-
-        return studentsArray;
-    }
-
-
-
+    
     function addStudentToLocalStoreage() {
-
-        let studentsArray = getStudentArray();
+        let studentsArray = [];
 
         $.get('students.json', function (data) {
-            adatok = JSON.parse(data);
+            let adatok = JSON.parse(data);
 
             for (let i = 0; i < adatok.length; i++) {
-                
-                let student = new Student(adatok[i]);
+                let student = new Student(
+                        adatok[i].code,
+                        adatok[i].password,
+                        adatok[i].speciality
+                );
 
                 studentsArray.push(student);
             }
 
-
-
-
-
             localStorage.setItem('studentsArray', JSON.stringify(studentsArray));
         }, 'text');
-
     }
 
     addStudentToLocalStoreage();
 
-    for (let i = 0; i < studentsArray.length; i++) {
-        let key = studentsArray[i];
-        let value = JSON.parse(localStorage[key]);
-        addStudentToDOM(key, value);
-    }
-
+    
 
     /*
      
