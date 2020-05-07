@@ -62,11 +62,22 @@ $(document).ready(function () {
         window.location = "index.html";
     });
 
+    function addCourse(courseData) {
+console.log(courseData);
+        // localStorage.setItem('courses', (new Course(courseData)));
+    }
+
     $(document).on('click', '#submit_course', function (e) {
         e.preventDefault();
-        
-        
+        let newCourseData = $('#new_course').serialize();
+        addCourse(newCourseData);
+       // displayCourses();
     });
+
+
+
+
+
 
 
 
