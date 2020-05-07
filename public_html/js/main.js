@@ -73,6 +73,13 @@ console.log(courseData);
         addCourse(newCourseData);
        // displayCourses();
     });
+    
+    
+    
+    
+    $(document).on('click', '#list_courses', function (){
+        displayCourses();
+    });
 
 
 

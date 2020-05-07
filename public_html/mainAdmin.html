@@ -27,26 +27,28 @@
                 </ul>
             </div>  
         </nav>
-        <div>
-            <table id="courses" class="table table-striped text-center">
-                <tr>
-                    <td>Kurzus neve</td>
-                    <td>Kurzuskód</td>
-                    <td>Kreditszám</td>
-                    <td>Max. létszám</td>
-                    <td>Oktató neve</td>
-                    <td>Típus</td>
-                </tr>
-            </table>
-            <form id="new_course" method="post">
-                <input class="form-control" type="text" id="course_name" placeholder="Kurzus neve">
-                <input class="form-control" type="text" id="course_code" placeholder="Kurzus kódja">
-                <input class="form-control" type="number" id="course_credit" placeholder="Kreditszám">
-                <input class="form-control" type="number" id="course_maxStudent" placeholder="Max. létszám">
-                <input class="form-control" type="text" id="course_teacher" placeholder="Oktató neve">
-                <input class="form-control" type="text" id="course_type" placeholder="Típus">
-                <input class="btn btn-primary" type="submit" id="submit_course" value="Kurzus felvétele">
-            </form>
+        <div class="col-12">
+            <div class="row">
+                <table id="courses" class="table table-striped text-center">
+                    <tr>
+                        <td>Kurzus neve</td>
+                        <td>Kurzuskód</td>
+                        <td>Kreditszám</td>
+                        <td>Max. létszám</td>
+                        <td>Oktató neve</td>
+                        <td>Típus</td>
+                    </tr>
+                </table>
+                <form id="new_course" method="post">
+                    <input class="form-control" type="text" id="course_name" placeholder="Kurzus neve">
+                    <input class="form-control" type="text" id="course_code" placeholder="Kurzus kódja">
+                    <input class="form-control" type="number" id="course_credit" placeholder="Kreditszám">
+                    <input class="form-control" type="number" id="course_maxStudent" placeholder="Max. létszám">
+                    <input class="form-control" type="text" id="course_teacher" placeholder="Oktató neve">
+                    <input class="form-control" type="text" id="course_type" placeholder="Típus">
+                    <input class="btn btn-primary" type="submit" id="submit_course" value="Kurzus felvétele">
+                </form>
+            </div>
         </div>
     </body>
 </html>
