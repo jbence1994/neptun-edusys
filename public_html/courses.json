@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Programozás alapjai",
+        "code": "INF-KTER3",
+        "credit": "2",
+        "maxStudent": "130",
+        "teacher": "Mekk Elek",
+        "type": "előadás"
+    },
+    {
+        "name": "Angol nyelv",
+        "code": "KKOMP2",
+        "credit": "2",
+        "maxStudent": "20",
+        "teacher": "John Doe",
+        "type": "gyakorlat"
+    },
+    {
+        "name": "Munakerő piaci ismeretek",
+        "code": "KKOMP1",
+        "credit": "2",
+        "maxStudent": "15",
+        "teacher": "Gipsz Jakab",
+        "type": "előadás"
+    }	
+]

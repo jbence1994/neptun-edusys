@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    function initalizeLocalStoreageWithTestData() {
+    function initalizeLocalStoreageWithTestStudents() {
 
         let students = [];
 
@@ -10,7 +10,9 @@ $(document).ready(function () {
 
             for (let i = 0; i < data.length; i++) {
 
-                let student = new Student(data[i].code, data[i].password, data[i].speciality);
+                let student = new Student
+                        (data[i].code, data[i].password, data[i].speciality);
+
                 students.push(student);
             }
 
@@ -18,13 +20,40 @@ $(document).ready(function () {
         }, 'text');
     }
 
-    initalizeLocalStoreageWithTestData();
-    
-    
-    
-    
-    
-    
+    function initalizeLocalStoreageWithTestCourses() {
+
+        let courses = [];
+
+        $.get('courses.json', function (JSONData) {
+
+            let data = JSON.parse(JSONData);
+
+            for (let i = 0; i < data.length; i++) {
+
+                let course = new Course
+                        (data[i].name, data[i].code, data[i].credit,
+                                data[i].maxStudent, data[i].teacher, data[i].type);
+
+                courses.push(course);
+            }
+
+            localStorage.setItem('courses', JSON.stringify(courses));
+        }, 'text');
+    }
+
+    initalizeLocalStoreageWithTestStudents();
+    initalizeLocalStoreageWithTestCourses();
+
+
+
+
+    $().on('click', '#addCourse', function (e) {
+
+        e.preventDefault();
+
+    });
+
+
 
 
     /*     
