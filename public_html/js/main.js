@@ -86,7 +86,7 @@ $(document).ready(function () {
 
 
     $(document).on('click', '#list_courses', function () {
-        displayCourses();
+        // diák oldalon kurzus lista ...
     });
 
 
