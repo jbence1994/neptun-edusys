@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    function getCourseArray() {
+        return JSON.parse(localStorage.getItem('courses'));
+    }
+
     $(document).on('click', '#admin-login', function () {
         window.location = "mainAdmin.html";
     });
@@ -63,21 +67,23 @@ $(document).ready(function () {
     });
 
     function addCourse(courseData) {
-console.log(courseData);
-        // localStorage.setItem('courses', (new Course(courseData)));
+        let courses = getCourseArray();
+        courses.push(new Course(courseData));
+        localStorage.setItem('courses', JSON.stringify(courses));
     }
 
     $(document).on('click', '#submit_course', function (e) {
         e.preventDefault();
+
         let newCourseData = $('#new_course').serialize();
         addCourse(newCourseData);
-       // displayCourses();
+        displayCourses();
     });
-    
-    
-    
-    
-    $(document).on('click', '#list_courses', function (){
+
+
+
+
+    $(document).on('click', '#list_courses', function () {
         displayCourses();
     });
 
