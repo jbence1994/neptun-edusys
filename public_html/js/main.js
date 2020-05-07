@@ -62,21 +62,10 @@ $(document).ready(function () {
         window.location = "index.html";
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
     $(document).on('click', '#submit_course', function (e) {
-
         e.preventDefault();
+        
+        
     });
 
 
@@ -86,7 +75,6 @@ $(document).ready(function () {
      function deleteCourse(key) {
      localStorage.removeItem(key);
      
-     let courseArray = getCourseArray();
      
      if (courseArray) {
      for (let i = 0; i < courseArray.length; i++) {
@@ -151,9 +139,5 @@ $(document).ready(function () {
      
      
      
-     $(document).on('click', '#deleteCookie', function () {
-     let key = prompt("Süti törlés kulcsa: ");
-     setCookie(key, "", -1);
-     });
      */
 });
