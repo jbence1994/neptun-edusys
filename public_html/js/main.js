@@ -4,13 +4,13 @@ $(document).ready(function () {
 
         let studentsArray = [];
 
-        $.get('students.json', function (data) {
+        $.get('students.json', function (JSONData) {
 
-            let adatok = JSON.parse(data);
+            let data = JSON.parse(JSONData);
 
-            for (let i = 0; i < adatok.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                let student = new Student(adatok[i].code, adatok[i].password, adatok[i].speciality);
+                let student = new Student(data[i].code, data[i].password, data[i].speciality);
                 studentsArray.push(student);
             }
 
@@ -19,28 +19,15 @@ $(document).ready(function () {
     }
 
     initalizeLocalStoreageWithTestData();
+    
+    
+    
+    
+    
+    
 
 
-
-    /*
-     
-     function getStudentsDataFromFile() {
-     
-     $.get('students.txt', function (data) {
-     
-     }, 'text');
-     
-     return studentsArray;
-     }
-     
-     
-     
-     
-     
-     
-     studentsArray = getStudentsDataFromFile();
-     
-     
+    /*     
      function getCourseArray() {
      let courseArray = localStorage.getItem('courseArray');
      
