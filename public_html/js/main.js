@@ -47,15 +47,15 @@ $(document).ready(function () {
 
         // $('#courses').empty(); // HTML reinit
 
-        let values = getCourseArray();
+        let courses = getCourseArray();
 
-        for (let i = 0; i < values.length; i++) {
-            $('#courses').append('<tr><td>' + values[i]._name + '</td>' +
-                    '<td>' + values[i]._code + '</td>' +
-                    '<td>' + values[i]._credit + '</td>' +
-                    '<td>' + values[i]._maxStudent + '</td>' +
-                    '<td>' + values[i]._teacher + '</td>' +
-                    '<td>' + values[i]._type + '</td>' +
+        for (let i = 0; i < courses.length; i++) {
+            $('#courses').append('<tr><td>' + courses[i]._name + '</td>' +
+                    '<td>' + courses[i]._code + '</td>' +
+                    '<td>' + courses[i]._credit + '</td>' +
+                    '<td>' + courses[i]._maxStudent + '</td>' +
+                    '<td>' + courses[i]._teacher + '</td>' +
+                    '<td>' + courses[i]._type + '</td>' +
                     '</tr>');
         }
     }
@@ -69,19 +69,19 @@ $(document).ready(function () {
     });
 
     $('#new_course').on('submit', function (e) {
-        
+
         e.preventDefault();
-        
+
         let newCourseData = $(this).serialize();
         console.log(newCourseData.value);
-        
+
         let courses = getCourseArray();
-        
+
         // course data split for .ctor set
-        
+
         courses.push(new Course(newCourseData));
         localStorage.setItem('courses', JSON.stringify(courses));
-        
+
         displayCourses();
     });
 
