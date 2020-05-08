@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    let counter = 0;
+
+    let login_counter = 0;
 
     function getCourses() {
         return JSON.parse(localStorage.getItem('courses'));
@@ -334,9 +335,9 @@ $(document).ready(function () {
             return;
         }
 
-        ++counter;
+        ++login_counter;
 
-        if (counter > 5) {
+        if (login_counter > 5) {
             setCookie('login_limit', true, 1000 * 60 * 5);
             alert('Pihenj 5 percig');
             return;
@@ -375,9 +376,6 @@ $(document).ready(function () {
             }
         }
     }
-
-
-
 
     displayStudentData();
     deleteCourse();
