@@ -6,7 +6,11 @@ $(document).ready(function () {
     }
 
     function getStudents() {
-        return JSON.parse(localStorage.getItem('students'))
+        return JSON.parse(localStorage.getItem('students'));
+    }
+
+    function getStudentCourses() {
+        return JSON.parse(localStorage.getItem('student_courses'))
     }
 
     $(document).on('click', '#admin-login', function () {
@@ -14,8 +18,12 @@ $(document).ready(function () {
     });
 
     function initalizeLocalStoreageWithTestStudents() {
+        let students = getStudents() || [];
 
-        let students = [];
+        if (students && students.length) {
+            return;
+        }
+
         $.get('students.json', function (JSONData) {
 
             let data = JSON.parse(JSONData);
@@ -57,6 +65,10 @@ $(document).ready(function () {
     function displayCourses() {
         let courses = getCourses();
 
+        if (!courses || !courses.length) {
+            return;
+        }
+
         for (let i = 0; i < courses.length; i++) {
             $('#courses').append('<tr><td>' + courses[i]._name + '</td>' +
                     '<td>' + courses[i]._code + '</td>' +
@@ -68,13 +80,29 @@ $(document).ready(function () {
                     '<td><button data-id="' + i + '"class="course_delete btn btn-danger">Törlés</button></td>' +
                     '</tr>');
             $('#courses_student').append('<tr><td>' + courses[i]._name + '</td>' +
-                '<td>' + courses[i]._code + '</td>' +
-                '<td>' + courses[i]._credit + '</td>' +
-                '<td>' + courses[i]._maxStudent + '</td>' +
-                '<td>' + courses[i]._teacher + '</td>' +
-                '<td>' + courses[i]._type + '</td>' +
-                '<td><button data-id="' + i + '" class="course_apply btn btn-primary">Felvétel</button></td>'
-            );
+                    '<td>' + courses[i]._code + '</td>' +
+                    '<td>' + courses[i]._credit + '</td>' +
+                    '<td>' + courses[i]._maxStudent + '</td>' +
+                    '<td>' + courses[i]._teacher + '</td>' +
+                    '<td>' + courses[i]._type + '</td>' +
+                    '<td><button data-code="' + courses[i]._code + '" data-id="' + i + '" class="course_handle btn btn-primary">Felvétel</button></td>'
+                    );
+        }
+
+        let studentCourses = getStudentCourses();
+
+        if (!studentCourses || !Object.keys(studentCourses).length) {
+            return;
+        }
+
+        let user = JSON.parse(getCookie('user'));
+        let currentStudentCourses = studentCourses[user._code];
+
+        for (let i in currentStudentCourses) {
+            $('[data-code="' + i + '"]').text("Leadás")
+                    .addClass("btn-danger")
+                    .removeClass("btn-primary")
+                    .attr("data-remove", true);
         }
     }
 
@@ -97,15 +125,15 @@ $(document).ready(function () {
         }
 
         let courseInstance = new Course(
-            tmp._name,
-            tmp._code,
-            tmp._credit,
-            tmp._maxStudent,
-            tmp._teacher,
-            tmp._type
-        );
-        
-        
+                tmp._name,
+                tmp._code,
+                tmp._credit,
+                tmp._maxStudent,
+                tmp._teacher,
+                tmp._type
+                );
+
+
         // Handling update..
         if ($("#submit_course").attr("update")) {
             $("#submit_course").val("Kurzus felvétele");
@@ -114,31 +142,123 @@ $(document).ready(function () {
         } else {
             courses.push(courseInstance);
         }
-        
+
         localStorage.setItem('courses', JSON.stringify(courses));
         document.location.reload();
     });
 
-    $(document).on('click', '#list_courses', function () {
-        // diák oldalon kurzus lista ...
+    $(document).on('click', '.course_handle', function () {
+        let id = $(this).data("id");
+        let courses = getCourses();
+
+        if (!courses[id]) {
+            return;
+        }
+
+        let remove = $(this).data("remove");
+        let studentCourses = getStudentCourses() || {};
+        let student = JSON.parse(getCookie('user'));
+
+        if (!studentCourses[student._code]) {
+            studentCourses[student._code] = {};
+        }
+
+        let userCourses = {};
+
+        for (let i in studentCourses) {
+            let keys = Object.keys(studentCourses[i]);
+
+            for (j = 0; j < keys.length; j++) {
+                if (userCourses[keys[j]]) {
+                    ++userCourses[keys[j]];
+                } else {
+                    userCourses[keys[j]] = 1;
+                }
+            }
+        }
+
+        let code = $(this).data("code");
+
+
+
+        for (let i = 0; i < courses.length; i++) {
+            if (code === courses[i]._code) {
+                if (userCourses[code]
+                        && userCourses[code] >= parseInt(courses[i]._maxStudent)
+                        ) {
+                    alert('Betelt a hely a kurzuson');
+                    return;
+
+                }
+            }
+        }
+
+        let studentsList = getStudents();
+        let count = 0;
+
+        if (remove) {
+            delete studentCourses[student._code][code];
+            localStorage.removeItem(studentCourses[student._code][code]);
+            let count = 0;
+
+            for (let j = 0; j < courses.length; j++) {
+                if (courses[j]._code === code) {
+                    count += 1 * courses[j]._credit;
+                }
+            }
+
+            for (let i = 0; i < studentsList.length; i++) {
+                if (studentsList[i]._code === student._code) {
+                    studentsList[i]['_credit'] -= count;
+                }
+            }
+        } else {
+            studentCourses[student._code][courses[id]._code] = 1;
+
+            for (let i in studentCourses[student._code]) {
+                for (let j = 0; j < courses.length; j++) {
+                    if (i === courses[j]._code) {
+                        count += 1 * courses[j]._credit;
+                    }
+                }
+            }
+
+            // todo tedd ki konstansba
+            if (count > 30) {
+                // remove the previous added element
+                delete studentCourses[student._code][courses[id]._code];
+                alert('30 kredit limitet elérted');
+                return;
+            }
+
+            for (let i = 0; i < studentsList.length; i++) {
+                if (studentsList[i]._code === student._code) {
+                    studentsList[i]['_credit'] = count;
+                }
+            }
+        }
+
+        localStorage.setItem('students', JSON.stringify(studentsList));
+        localStorage.setItem('student_courses', JSON.stringify(studentCourses));
+        document.location.reload();
     });
-    
+
     function editCourse() {
         $(".course_update").on("click", function () {
             let id = $(this).data("id");
             let courses = getCourses();
-            
+
             if (!courses[id]) {
                 return;
             }
-            
+
             $("#submit_course").val("Kurzus módosítása");
             $("#submit_course").attr("update", true);
-            
+
             for (let i in courses[id]) {
-                $("#"+i).val(courses[id][i]);
+                $("#" + i).val(courses[id][i]);
             }
-            
+
             $("#_id").val(id);
         });
     }
@@ -147,15 +267,28 @@ $(document).ready(function () {
         $(".course_delete").on("click", function () {
             let id = $(this).data("id");
             let courseArray = getCourses();
-                
-             if (!courseArray) {
-                 return;
-            }
-            
-            if (!courseArray[id]){
+
+            if (!courseArray) {
                 return;
             }
-            
+
+            if (!courseArray[id]) {
+                return;
+            }
+
+            let studentCourses = getStudentCourses();
+
+            if (studentCourses && Object.keys(studentCourses).length > 0) {
+                for (i in studentCourses) {
+                    for (j in studentCourses[i]) {
+                        if (j == courseArray[id]._code) {
+                            alert('A kurzus nem törölhető, már van feliratkozó');
+                            return;
+                        }
+                    }
+                }
+            }
+
             courseArray.splice(id, 1);
             localStorage.setItem('courses', JSON.stringify(courseArray));
             localStorage.removeItem(id);
@@ -228,13 +361,22 @@ $(document).ready(function () {
 
     function displayStudentData() {
         let cookie = JSON.parse(getCookie('user'));
-        $('#student_data').html(cookie._code); // TODO: adatok
+        $('#student_data').html(cookie._code + " (" + cookie._specialty + ")");
 
+        let students = getStudents();
 
+        if (!students || !students.length) {
+            return;
+        }
 
+        for (let i = 0; i < students.length; i++) {
+            if (cookie._code === students[i]._code) {
+                $("#credits").html("<br>" + (1 * students[i]._credit || 0) + " kredit");
+            }
+        }
     }
-    
-    
+
+
 
 
     displayStudentData();
