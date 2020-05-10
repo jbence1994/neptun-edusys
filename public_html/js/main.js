@@ -14,10 +14,6 @@ $(document).ready(function () {
         return JSON.parse(localStorage.getItem('student_courses'))
     }
 
-    $(document).on('click', '#admin-login', function () {
-        window.location = "mainAdmin.html";
-    });
-
     function initalizeLocalStoreageWithTestStudents() {
         let students = getStudents() || [];
 
@@ -111,6 +107,141 @@ $(document).ready(function () {
     initalizeLocalStoreageWithTestCourses();
     displayCourses();
 
+    function updateCourse() {
+        $(".course_update").on("click", function () {
+            let id = $(this).data("id");
+            let courses = getCourses();
+
+            if (!courses[id]) {
+                return;
+            }
+
+            $("#submit_course").val("Kurzus módosítása");
+            $("#submit_course").attr("update", true);
+
+            for (let i in courses[id]) {
+                $("#" + i).val(courses[id][i]);
+            }
+
+            $("#_id").val(id);
+        });
+    }
+
+    function deleteCourse() {
+        $(".course_delete").on("click", function () {
+            let id = $(this).data("id");
+            let courseArray = getCourses();
+
+            if (!courseArray) {
+                return;
+            }
+
+            if (!courseArray[id]) {
+                return;
+            }
+
+            let studentCourses = getStudentCourses();
+
+            if (studentCourses && Object.keys(studentCourses).length > 0) {
+                for (i in studentCourses) {
+                    for (j in studentCourses[i]) {
+                        if (j === courseArray[id]._code) {
+                            alert('A kurzus nem törölhető, már van feliratkozó');
+                            return;
+                        }
+                    }
+                }
+            }
+
+            courseArray.splice(id, 1);
+            localStorage.setItem('courses', JSON.stringify(courseArray));
+            localStorage.removeItem(id);
+            document.location.reload();
+        });
+    }
+
+    function setCookie(key, value, expTime) {
+        let expires = "";
+
+        if (expTime) {
+            let date = new Date();
+            date.setTime(date.getTime() + expTime);
+            expires = "; expires= " + date.toUTCString();
+        }
+
+        document.cookie = key + "=" + value + expires + ";path=/";
+    }
+
+    function getCookie(key) {
+        var name = key + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+
+        return "";
+    }
+
+    function displayStudentData() {
+        let cookie = JSON.parse(getCookie('user'));
+        $('#student_data').html(cookie._code + " (" + cookie._specialty + ")");
+
+        let students = getStudents();
+
+        if (!students || !students.length) {
+            return;
+        }
+
+        for (let i = 0; i < students.length; i++) {
+            if (cookie._code === students[i]._code) {
+                $("#credits").html("<br>" + (1 * students[i]._credit || 0) + " kredit");
+            }
+        }
+    }
+    
+    $(document).on('click', '#admin-login', function () {
+        window.location = "mainAdmin.html";
+    });
+
+    $(document).on('click', '#student-login', function () {
+        if (getCookie('login_limit')) {
+            alert('Még nem telt le az 5 perc');
+            return;
+        }
+
+        ++login_counter;
+
+        if (login_counter > 5) {
+            setCookie('login_limit', true, 1000 * 60 * 5);
+            alert('Pihenj 5 percig');
+            return;
+        }
+
+        let student_code = $("#studentCode").val();
+        let student_password = $("#studentPassword").val();
+
+        if (student_code && student_password) {
+            let students = getStudents();
+
+            for (let i = 0; i < students.length; i++) {
+                if (students[i]._code === student_code
+                        && students[i]._password === student_password) {
+                    setCookie('user', JSON.stringify(students[i]), 1000 * 60 * 60 * 60 * 24);
+                    window.location = "mainStudent.html";
+
+                }
+            }
+        }
+    });
+
     $(document).on('click', '.logout', function () {
         window.location = "index.html";
     });
@@ -134,8 +265,6 @@ $(document).ready(function () {
                 tmp._type
                 );
 
-
-        // Handling update..
         if ($("#submit_course").attr("update")) {
             $("#submit_course").val("Kurzus felvétele");
             let id = $("#_id").val();
@@ -180,8 +309,6 @@ $(document).ready(function () {
 
         let code = $(this).data("code");
 
-
-
         for (let i = 0; i < courses.length; i++) {
             if (code === courses[i]._code) {
                 if (userCourses[code]
@@ -224,9 +351,7 @@ $(document).ready(function () {
                 }
             }
 
-            // todo tedd ki konstansba
             if (count > 30) {
-                // remove the previous added element
                 delete studentCourses[student._code][courses[id]._code];
                 alert('30 kredit limitet elérted');
                 return;
@@ -244,140 +369,7 @@ $(document).ready(function () {
         document.location.reload();
     });
 
-    function editCourse() {
-        $(".course_update").on("click", function () {
-            let id = $(this).data("id");
-            let courses = getCourses();
-
-            if (!courses[id]) {
-                return;
-            }
-
-            $("#submit_course").val("Kurzus módosítása");
-            $("#submit_course").attr("update", true);
-
-            for (let i in courses[id]) {
-                $("#" + i).val(courses[id][i]);
-            }
-
-            $("#_id").val(id);
-        });
-    }
-
-    function deleteCourse() {
-        $(".course_delete").on("click", function () {
-            let id = $(this).data("id");
-            let courseArray = getCourses();
-
-            if (!courseArray) {
-                return;
-            }
-
-            if (!courseArray[id]) {
-                return;
-            }
-
-            let studentCourses = getStudentCourses();
-
-            if (studentCourses && Object.keys(studentCourses).length > 0) {
-                for (i in studentCourses) {
-                    for (j in studentCourses[i]) {
-                        if (j == courseArray[id]._code) {
-                            alert('A kurzus nem törölhető, már van feliratkozó');
-                            return;
-                        }
-                    }
-                }
-            }
-
-            courseArray.splice(id, 1);
-            localStorage.setItem('courses', JSON.stringify(courseArray));
-            localStorage.removeItem(id);
-            document.location.reload();
-        });
-    }
-
-    function setCookie(key, value, expTime) {
-        let expires = ""; // lejárati dátum
-
-        if (expTime) {
-            let date = new Date();
-            date.setTime(date.getTime() + expTime);
-            expires = "; expires= " + date.toUTCString();
-        }
-
-        document.cookie = key + "=" + value + expires + ";path=/";
-    }
-
-    function getCookie(key) {
-        var name = key + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') { // === ?
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) { // === ?
-                return c.substring(name.length, c.length);
-            }
-        }
-
-        return "";
-    }
-
-    $(document).on('click', '#student-login', function () {
-        // user login storeage-ból
-
-        if (getCookie('login_limit')) {
-            alert('Még nem telt le az 5 perc');
-            return;
-        }
-
-        ++login_counter;
-
-        if (login_counter > 5) {
-            setCookie('login_limit', true, 1000 * 60 * 5);
-            alert('Pihenj 5 percig');
-            return;
-        }
-
-        let student_code = $("#studentCode").val();
-        let student_password = $("#studentPassword").val();
-
-        if (student_code && student_password) {
-            let students = getStudents();
-
-            for (let i = 0; i < students.length; i++) {
-                if (students[i]._code === student_code
-                        && students[i]._password === student_password) {
-                    setCookie('user', JSON.stringify(students[i]), 1000 * 60 * 60 * 60 * 24);
-                    window.location = "mainStudent.html";
-
-                }
-            }
-        }
-    });
-
-    function displayStudentData() {
-        let cookie = JSON.parse(getCookie('user'));
-        $('#student_data').html(cookie._code + " (" + cookie._specialty + ")");
-
-        let students = getStudents();
-
-        if (!students || !students.length) {
-            return;
-        }
-
-        for (let i = 0; i < students.length; i++) {
-            if (cookie._code === students[i]._code) {
-                $("#credits").html("<br>" + (1 * students[i]._credit || 0) + " kredit");
-            }
-        }
-    }
-
     displayStudentData();
     deleteCourse();
-    editCourse();
+    updateCourse();
 });
