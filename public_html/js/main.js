@@ -133,8 +133,6 @@ $(document).ready(function () {
                 tmp._type
                 );
 
-
-        // Handling update..
         if ($("#submit_course").attr("update")) {
             $("#submit_course").val("Kurzus felvétele");
             let id = $("#_id").val();
@@ -179,8 +177,6 @@ $(document).ready(function () {
 
         let code = $(this).data("code");
 
-
-
         for (let i = 0; i < courses.length; i++) {
             if (code === courses[i]._code) {
                 if (userCourses[code]
@@ -223,9 +219,7 @@ $(document).ready(function () {
                 }
             }
 
-            // todo tedd ki konstansba
             if (count > 30) {
-                // remove the previous added element
                 delete studentCourses[student._code][courses[id]._code];
                 alert('30 kredit limitet elérted');
                 return;
@@ -297,7 +291,7 @@ $(document).ready(function () {
     }
 
     function setCookie(key, value, expTime) {
-        let expires = ""; // lejárati dátum
+        let expires = "";
 
         if (expTime) {
             let date = new Date();
@@ -315,10 +309,10 @@ $(document).ready(function () {
 
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') { // === ?
+            while (c.charAt(0) === ' ') {
                 c = c.substring(1);
             }
-            if (c.indexOf(name) == 0) { // === ?
+            if (c.indexOf(name) === 0) {
                 return c.substring(name.length, c.length);
             }
         }
@@ -327,8 +321,6 @@ $(document).ready(function () {
     }
 
     $(document).on('click', '#student-login', function () {
-        // user login storeage-ból
-
         if (getCookie('login_limit')) {
             alert('Még nem telt le az 5 perc');
             return;
@@ -375,9 +367,6 @@ $(document).ready(function () {
             }
         }
     }
-
-
-
 
     displayStudentData();
     deleteCourse();
