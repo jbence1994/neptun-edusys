@@ -7,7 +7,7 @@
 }
 
 #login {
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
     margin-top: 5%;
 }
@@ -16,7 +16,7 @@ input {
     width: 100%;
 }
 
-fieldset{
+fieldset {
     padding: 5%;
     border: 1px dotted black;
 }
@@ -25,12 +25,11 @@ legend {
     text-align: center;
 }
 
-.logout{
+.logout {
     cursor: default;
 }
 
-#course{
-
+#course {
     margin: 0 auto;
     width: 50%;
     height: 50%;

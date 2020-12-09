@@ -1,6 +1,6 @@
 <?php
 
-class PDOConnection {
+class PdoConnection {
 
     public function __construct() {
 
