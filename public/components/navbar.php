@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link logout" href="index.php">Kilépés</a>
+                <a class="nav-link logout">Kilépés</a>
             </li>
         </ul>
     </div>

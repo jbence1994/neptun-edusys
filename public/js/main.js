@@ -59,6 +59,21 @@ $(function () {
             }
         });
     });
+
+    $(document).on('click', '.logout', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            method: 'get',
+            url: 'ajax-resources/logout.php',
+            success: function () {
+                location.href = "index.php";
+            },
+            error: function (xhr) {
+                alert(xhr.status);
+            }
+        });
+    });
 });
 
 
