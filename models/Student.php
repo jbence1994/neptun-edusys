@@ -3,15 +3,15 @@
 class Student
 {
     private $code;
+    private $password;
     private $firstName;
     private $lastName;
-    private $credit;
 
-    public function __construct($code, $firstName, $lastName, $credit)
+    public function __construct($code, $password, $firstName, $lastName)
     {
         $this->code = $code;
+        $this->password = $password;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
-        $this->credit = $credit;
     }
 }

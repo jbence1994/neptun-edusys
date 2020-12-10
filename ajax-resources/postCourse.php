@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $credit = $_POST['credit'];
     $type = $_POST['type'];
 
-    $connection = new MySQLConnection("127.0.0.1", "root", "", "neptun_edusys", "3306");
 
     $course = new Course($code, $name, $credit, $type);
     $connection->insertCourse($course);
