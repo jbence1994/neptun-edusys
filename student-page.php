@@ -16,7 +16,7 @@ require_once 'public/components/head.php';
 <div class="row">
     <div class="col-12">
         <h5 id="student_data"></h5>
-        <h5 id="credits"></h5>
+        <h5 id="credits"></h5><span>kredit</span>
         <div id="display-courses-to-students"></div>
     </div>
 </div>

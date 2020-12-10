@@ -1,7 +1,6 @@
 $(function () {
 
     displayStudentName();
-    displayStudentCredits();
     displayCourses();
     displayCoursesToStudents();
 
@@ -45,7 +44,9 @@ $(function () {
     });
 
     $(document).on('click', '.pick-up-course', function () {
-        let courseCode = $(this).data('course-code');
+        let gomb = $(this);
+        let courseCode = gomb.data('course-code');
+        let row = gomb.parent().parent();
 
         $.ajax({
             method: "POST",
@@ -54,7 +55,7 @@ $(function () {
                 code: courseCode
             },
             success: function () {
-
+                row.fadeOut();
             },
             error: function (xhr) {
                 alert(xhr.status);
@@ -141,8 +142,4 @@ function displayStudentName() {
             alert(xhr.status);
         }
     });
-}
-
-function displayStudentCredits() {
-    $('#credits').text(" kredit");
 }
