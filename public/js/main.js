@@ -49,7 +49,7 @@ $(function () {
             method: "POST",
             url: "ajax-resources/pickUpCourse.php",
             data: {
-                courseCode: courseCode
+                code: courseCode
             },
             success: function () {
 

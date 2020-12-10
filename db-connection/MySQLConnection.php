@@ -1,6 +1,7 @@
 <?php
 
 require_once '../models/Course.php';
+require_once '../models/StudentCourse.php';
 
 class MySQLConnection
 {
@@ -59,6 +60,14 @@ class MySQLConnection
             ("INSERT INTO courses (code, name, type, credit) " .
                 "VALUES ('{$course->getCode()}', '{$course->getName()}', 
                 '{$course->getType()}', {$course->getCredit()});");
+    }
+
+    public function insertApply(StudentCourse $studentCourse)
+    {
+        $this
+            ->mysqlConnection
+            ->query("INSERT INTO student_courses(student_code, course_code) VALUES('{$studentCourse->getStudentCode()}',
+        '{$studentCourse->getCourseCode()}');");
     }
 }
 
