@@ -14,4 +14,24 @@ class Course
         $this->credit = $credit;
         $this->type = $type;
     }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getCredit()
+    {
+        return $this->credit;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
 }
