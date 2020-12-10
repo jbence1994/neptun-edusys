@@ -1,5 +1,7 @@
 $(function () {
 
+    displayStudentName();
+    displayStudentCredits();
     displayCourses();
     displayCoursesToStudents();
 
@@ -125,4 +127,22 @@ function displayCoursesToStudents() {
             alert(xhr.status);
         }
     });
+}
+
+function displayStudentName() {
+
+    $.ajax({
+        method: 'GET',
+        url: "ajax-resources/getUser.php",
+        success: function (result) {
+            $('#student_data').text("Neptun azonosító: " + result);
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    });
+}
+
+function displayStudentCredits() {
+    $('#credits').text(" kredit");
 }

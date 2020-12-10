@@ -13,7 +13,8 @@ $html = '<table id="courses" class="table table-striped text-center">'
     . '<td>Kurzus kódja</td>'
     . '<td>Kurzus neve</td>'
     . '<td>Kredit érték</td>'
-    . '<td colspan="2">Típus</td>'
+    . '<td>Típus</td>'
+    . '<td></td>'
     . '<tr>';
 
 while ($row = $result->fetch_row()) {
